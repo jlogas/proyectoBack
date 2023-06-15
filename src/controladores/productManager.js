@@ -35,15 +35,17 @@ class ProductManager{
     }
     getProductoById= async (id)=>{
         let productos = await this.parsearArray();
-        console.log(productos);
-        let arrayId = productos.find(producto => producto.id === id)
+        let arrayId = productos.find(producto => producto.id === id);
+        console.log(arrayId);
         return arrayId;
     }
     deleteProducts = async (id)=>{
         let arrayJava = await this.parsearArray();
-        let arrayFilter = arrayJava.filter(pro => pro.id !=id)
-        await this.escribirArray(arrayFilter);
-        return console.log("producto eliminado");
+        console.log(await this.getProductoById(5));
+        let arrayFiltrado = arrayJava.filter(producto => producto.id != id);
+        await this.escribirArray(arrayFiltrado);
+        console.log(this.getProducto);
+        return console.log("producto eliminado");  
     }
 
     validacion = async (id)=>{
@@ -64,4 +66,3 @@ export default ProductManager
 
 const producto = new ProductManager
 
-producto.crearProducto()
