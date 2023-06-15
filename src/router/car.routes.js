@@ -11,5 +11,18 @@ rutasCarritos.post("/", async(req,res)=>{
 rutasCarritos.get("/",async(req,res)=>{
     res.send(await carros.getcarro())
 })
+rutasCarritos.get("/",async(req,res)=>{
+    res.send(await carros.getcarro())
+})
+
+rutasCarritos.get("/:id", async(req,res)=>{
+res.send(await carros.getcarroById(req.params.id))
+})
+
+rutasCarritos.post("/:carroid/productos/:productoid", async(req,res)=>{
+ let idCarro = req.params.carroid;
+ let idproductos = req.params.productoid;
+ res.send(await carros.addProductoCarrito(idCarro,idproductos));
+})
 
 export default rutasCarritos
