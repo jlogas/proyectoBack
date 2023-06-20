@@ -36,9 +36,19 @@ const httpServer = app.listen(puerto, ()=>{
     console.log("Trabajando por el puerto 8080"); 
 })
 
-const socketServer = new Server(httpServer)
+const io = new Server(httpServer);
 
-socketServer.on("connection", (socket) =>{
-    console.log("conectados");
-})
+const messages = [];
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+  io.emit("messageLogs", messages);
+
+  socket.on("message", (data) => {
+    messages.push(data);
+    io.emit("messageLogs", messages);
+  });
+});
+
+
 
