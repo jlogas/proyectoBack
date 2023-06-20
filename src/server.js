@@ -38,7 +38,7 @@ const httpServer = app.listen(puerto, ()=>{
 
 const socketServer = new Server(httpServer)
 
-socketServer.on("connection", socket =>{
-    console.log("conectadoS");
+socketServer.on("connection", (socket) =>{
+    console.log("conectados");
 })
 
