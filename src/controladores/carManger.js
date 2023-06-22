@@ -1,4 +1,4 @@
-import { promises, existsSync,} from "fs";
+import { promises} from "fs";
 import ProductManager from "./productManager.js";
 
 const productos =  new ProductManager
