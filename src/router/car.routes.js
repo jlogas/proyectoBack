@@ -15,8 +15,9 @@ rutasCarritos.get("/",async(req,res)=>{
     res.send(await carros.getcarro())
 })
 
-rutasCarritos.get("/:id", async(req,res)=>{
-res.send(await carros.getcarroById(req.params.id))
+rutasCarritos.get("/:id", async(req,res)=>{ 
+    let id = parseInt(req.params.id)
+res.send(await carros.getcarroById(id))
 })
 
 rutasCarritos.post("/:carroid/productos/:productoid", async(req,res)=>{
