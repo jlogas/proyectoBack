@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
  price: Number,
  status: Boolean,
  stock:Number,
- category:String 
+ category:String  
 })
 
 export const productoModel = mongoose.model(productosCollection,productSchema)

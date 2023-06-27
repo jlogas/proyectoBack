@@ -12,6 +12,9 @@ vistaRouter.get("/productos", async(req,res)=>{
   res.render("productos",{productos})
 })
 
+
+
+
 vistaRouter.get("/carritos", async(req,res)=>{
   let carritos = await carritosdb.getAllCarritos()
   res.render("carritos",{carritos})

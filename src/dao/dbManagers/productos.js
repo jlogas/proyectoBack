@@ -8,6 +8,7 @@ export default class Producto{
 
     getAll = async()=>{
         let productos = await productoModel.find()
+        console.log(productos);
         return productos.map(producto => producto.toObject())
     }
 
@@ -17,15 +18,9 @@ export default class Producto{
     }
 
     filtrarProducto = async(id)=>{
-        let productoFiltrado = await productoModel.aggregate([
-            {
-                $match:{_id: id},
-            }
-        ])
+        let productoFiltrado = await productoModel.find({_id:id})
         console.log(productoFiltrado);
         return productoFiltrado
     }
 } 
-
-const prueba = new Producto()
 

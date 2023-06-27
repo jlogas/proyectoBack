@@ -15,8 +15,8 @@ import { carroModel } from './dao/models/carros.js';
 const producto = new ProductManager();
 const app = express();
 const puerto = 8080;
-// mongodb
-mongoose.connect("mongodb+srv://juanjlogas:coder@cluster0.apal9tl.mongodb.net/?retryWrites=true&w=majority");
+// mongodb 
+await mongoose.connect("mongodb+srv://juanjlogas:coder@cluster0.apal9tl.mongodb.net/?retryWrites=true&w=majority");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
