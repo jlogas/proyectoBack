@@ -9,6 +9,7 @@ import path from "path";
 import __dirname from './utils.js';
 import { Server} from 'socket.io';
 import mongoose from 'mongoose';
+import { carroModel } from './dao/models/carros.js';
 
 
 const producto = new ProductManager();
@@ -19,6 +20,8 @@ mongoose.connect("mongodb+srv://juanjlogas:coder@cluster0.apal9tl.mongodb.net/?r
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+
 
 
 //handlebars

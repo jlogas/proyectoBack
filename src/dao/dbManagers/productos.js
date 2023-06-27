@@ -3,7 +3,7 @@ import { productoModel } from "../models/productos.js";
 export default class Producto{
 
     constructor(){
-        console.log("instacio Producto con mongodb");
+        console.log("instancio Producto con mongodb");
     }
 
     getAll = async()=>{
@@ -16,4 +16,16 @@ export default class Producto{
         return nuevoProducto 
     }
 
+    filtrarProducto = async(id)=>{
+        let productoFiltrado = await productoModel.aggregate([
+            {
+                $match:{_id: id},
+            }
+        ])
+        console.log(productoFiltrado);
+        return productoFiltrado
+    }
 } 
+
+const prueba = new Producto()
+

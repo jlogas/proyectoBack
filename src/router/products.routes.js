@@ -35,7 +35,7 @@ const rutas = Router()
 //       const nuevoProducto = {id,title, description,price,thumbnail,code,stock};
 //       res.send(await producto.crearProducto(nuevoProducto));
 //       console.log(nuevoProducto);
-//    })
+//    }) 
 
    //mondb
         rutas.get("/", async(req,res)=>{
@@ -55,6 +55,12 @@ const rutas = Router()
             category
          })
          res.json({status:"success", payload: nuevoProducto})
-        })
+        }) 
+
+        rutas.get("/:id", async(req,res)=>{
+            let id =req.params.id
+            let producto = await productoDb.filtrarProducto(id)
+            res.json({status:"success",payload: producto})
+         })
 
    export default rutas

@@ -4,7 +4,7 @@ const productosCollection = "productos"
 
 const productSchema = new mongoose.Schema({
  title: String,
- description:String,
+ description:String,  
  code: String,
  price: Number,
  status: Boolean,
