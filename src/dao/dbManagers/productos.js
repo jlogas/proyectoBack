@@ -12,8 +12,17 @@ export default class Producto{
         return productos.map(producto => producto.toObject())
     }
 
-    getAllPaginate = async(limit,page)=>{
-        let productos = await productoModel.paginate({},{limit:limit,page:page})
+    getAllPaginate = async( category,orden,limit,page)=>{
+       let  productos = await productoModel.aggregate([
+            {
+                $match:{ category: category}
+            },
+            {
+                $sort:{ price: orden}
+            }
+        ])
+        productos = await productoModel.paginate({},{limit:limit,page:page})
+        console.log(productos);
         return productos
     };
 
@@ -29,5 +38,5 @@ export default class Producto{
     }
 } 
 
-// const prueba = new Producto()
-// prueba.getAllPaginate(1,2)
+ const prueba = new Producto()
+ prueba.getAllPaginate("deportes",-1,1,2)

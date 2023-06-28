@@ -21,12 +21,12 @@ export default class Carritos{
         console.log(carro);
         carro.productos.push({producto:idp})
         let resultado = await carroModel.updateOne({_id:idc},carro)
-        return resultado
+        return carro
     }
 
     getAllCarritos = async()=>{
-        let carritos = await carroModel.find().lean()
- //       carritos.map(carro =>carro.toObject())
+        let carritos = await carroModel.find().lean().populate("productos.producto")
+ //      carritos.map(carro =>carro.toObject())
          console.log(carritos);
         return carritos
     }
