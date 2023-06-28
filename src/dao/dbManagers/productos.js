@@ -12,6 +12,11 @@ export default class Producto{
         return productos.map(producto => producto.toObject())
     }
 
+    getAllPaginate = async(limit,page)=>{
+        let productos = await productoModel.paginate({},{limit:limit,page:page})
+        return productos
+    };
+
     crearProducto = async(producto)=>{
         let nuevoProducto = await productoModel.create(producto)
         return nuevoProducto 
@@ -24,3 +29,5 @@ export default class Producto{
     }
 } 
 
+// const prueba = new Producto()
+// prueba.getAllPaginate(1,2)

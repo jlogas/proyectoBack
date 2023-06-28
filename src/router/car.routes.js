@@ -30,11 +30,18 @@ const carrosdb = new Carritos()
 //  res.send(await carros.addProductoCarrito(idCarro,idproductos));
 // })
 
+// obtener todo los carritos
 rutasCarritos.get("/", async(req,res)=>{
     let carro = await carrosdb.getAllCarritos()
     res.json({statusL:"success", payload: carro})
 }) 
 
+// agregar carrito 
+ rutasCarritos.post("/",async(req,res)=>{
+    const {producto}=req.body
+    let newCarrito = await carrosdb.crearCarrito({producto})
+    res.json({statusL:"success", payload: newCarrito})
+ })
 
 
 export default rutasCarritos

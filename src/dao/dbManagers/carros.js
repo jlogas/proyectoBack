@@ -9,9 +9,11 @@ export default class Carritos{
         console.log("instacion carritos con mongodb");
     }
 
-    getAllCarritos = async()=>{
-        let carritos = await carroModel.find()
-        return carritos.map(carro =>carro.toObject())
+  
+
+    crearCarrito = async(carrito)=>{
+        let newCarrito = await carroModel.create(carrito) 
+        return newCarrito
     }
 
     ingresarProducto = async(idc,idp)=>{
@@ -19,7 +21,18 @@ export default class Carritos{
         console.log(carro);
         carro.productos.push({producto:idp})
         let resultado = await carroModel.updateOne({_id:idc},carro)
-        console.log(resultado);
+        return resultado
+    }
+
+    getAllCarritos = async()=>{
+        let carritos = await carroModel.find().lean()
+ //       carritos.map(carro =>carro.toObject())
+         console.log(carritos);
+        return carritos
     }
 
 }
+
+// const prueba = new Carritos()
+
+// prueba.getAllCarritos()

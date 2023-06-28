@@ -38,11 +38,13 @@ const rutas = Router()
 //    }) 
 
    //mondb
+
+   //llamar a los productos 
         rutas.get("/", async(req,res)=>{
             let producto = await productoDb.getAll()
             res.json({status:"success", payload: producto})
         })
-
+   // crear producto
         rutas.post("/", async(req,res)=>{
          const {title, description,code,price,status,stock,category} = req.body
          let nuevoProducto = await productoDb.crearProducto({
@@ -56,11 +58,20 @@ const rutas = Router()
          })
          res.json({status:"success", payload: nuevoProducto})
         }) 
-
+      // llamar po id
         rutas.get("/:id", async(req,res)=>{
             let id =req.params.id
             let producto = await productoDb.filtrarProducto(id)
             res.json({status:"success",payload: producto})
          })
+
+      // paginate
+
+      rutas.get("/:limit/:pages", async(req,res)=>{
+         let limit= req.params.limit
+         let pages = req.params.pages
+         let productosPaginate = await productoDb.getAllPaginate(limit,pages)
+         res.json({status:"success",payload: productosPaginate})
+      })
 
    export default rutas

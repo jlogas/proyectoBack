@@ -36,7 +36,7 @@ app.use("/api/productos", rutas)
 app.use("/api/carrito", rutasCarritos)
 app.use("/", vistaRouter)
 app.use("/api/usuarios", router);
-
+ 
 
 
 const httpServer = app.listen(puerto, ()=>{
