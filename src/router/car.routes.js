@@ -43,5 +43,13 @@ rutasCarritos.get("/", async(req,res)=>{
     res.json({statusL:"success", payload: newCarrito})
  })
 
+ // agregar producto al carro
+
+ rutasCarritos.post("/:idc/:idp",async(req,res)=>{
+    const {idc,idp}=req.body
+    let agregar= await carrosdb.ingresarProducto({idc,idp})
+    res.json({statusL:"success", payload: agregar})
+ })
+
 
 export default rutasCarritos

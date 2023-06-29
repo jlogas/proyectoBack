@@ -1,4 +1,5 @@
 import { productoModel } from "../models/productos.js";
+import mongoose from "mongoose";
 
 export default class Producto{
 
@@ -13,15 +14,7 @@ export default class Producto{
     }
 
     getAllPaginate = async( category,orden,limit,page)=>{
-       let  productos = await productoModel.aggregate([
-            {
-                $match:{ category: category}
-            },
-            {
-                $sort:{ price: orden}
-            }
-        ])
-        productos = await productoModel.paginate({},{limit:limit,page:page})
+        let productos = await productoModel.paginate({category:category},{limit:limit,page:page, sort:{price:orden}})
         console.log(productos);
         return productos
     };
@@ -38,5 +31,5 @@ export default class Producto{
     }
 } 
 
- const prueba = new Producto()
- prueba.getAllPaginate("deportes",-1,1,2)
+// prueba = new Producto()
+// prueba.getAllPaginate("deportes",1,2,1)

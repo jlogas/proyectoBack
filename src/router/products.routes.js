@@ -67,11 +67,13 @@ const rutas = Router()
 
       // paginate
 
-      rutas.get("/:limit/:pages", async(req,res)=>{
-         let limit= req.params.limit
-         let pages = req.params.pages
-         let productosPaginate = await productoDb.getAllPaginate(limit,pages)
-         res.json({status:"success",payload: productosPaginate})
+      rutas.get("/:category/:orden/:limit/:pages", async(req,res)=>{
+         let category = req.params.category
+         let orden = parseInt(req.params.orden)
+         let limit= parseInt(req.params.limit)
+         let pages = parseInt(req.params.pages)
+         let productosPaginate = await productoDb.getAllPaginate(category,orden,limit,pages)
+         res.send(productosPaginate)
       })
 
    export default rutas
