@@ -13,10 +13,36 @@ export default class Producto{
         return productos.map(producto => producto.toObject())
     }
 
-    getAllPaginate = async( category,orden,limit,page)=>{
-        let productos = await productoModel.paginate({category:category},{limit:limit,page:page, sort:{price:orden}})
-        console.log(productos);
-        return productos
+    getAllPaginate = async( categoryR,ordenR,limitR,pageR)=>{
+            const limit = parseInt(limitR,10)|| 10;
+            const page = parseInt(pageR,1)|| 1;
+            const orden = parseInt(ordenR);
+            const filtro = {}
+            if (categoryR) {
+                filtro.category = categoryR
+            };
+         let productos = await productoModel.paginate(filtro,{limit,page, sort:{price:orden}})
+         .then(function (result) {
+            const data = {
+                 arreglo:result.docs,
+                 totalDocs:result.totalDocs,
+                 limit:result.limit,
+                 page:result.page,
+                 totalPages:result.totalPages,
+                 page:result.page,
+                 pagingCounter:result.pagingCounter,
+                 hasPrevPage:result.hasPrevPage,
+                 hasNextPage:result.hasNextPage,
+                 prevPage:result.prevPage,
+                 nextPage:result.nextPage
+            }
+            
+            console.log("info paginate", data);
+            return data
+          })
+          console.log(productos);
+          return productos
+          
     };
 
     crearProducto = async(producto)=>{
@@ -31,5 +57,5 @@ export default class Producto{
     }
 } 
 
-// prueba = new Producto()
-// prueba.getAllPaginate("deportes",1,2,1)
+// const prueba = new Producto()
+// prueba.getAllPaginate()

@@ -12,12 +12,22 @@ vistaRouter.get("/productos", async(req,res)=>{
   res.render("productos",{productos})
 })
 
+vistaRouter.get("/productosf", async(req,res)=>{
+  let category = req.query.category
+  let orden = req.query.orden
+  let limit = req.query.limit
+  let pages = req.query.pages
+  let productosPaginate = await productosdb.getAllPaginate(category,orden,limit,pages)
+  res.render("paginate",{productosPaginate})
+})
+
+
+
 
 
 
 vistaRouter.get("/carritos", async(req,res)=>{
   let carritos = await carritosdb.getAllCarritos()
-  let productos = carritos.productos
   res.render("carritos",{carritos})
 })
 

@@ -17,26 +17,56 @@ export default class Carritos{
     }
 
     ingresarProducto = async(idc,idp)=>{
-        let carro = await carroModel.findById(idc).populate("productos.producto")
-        console.log(carro);
-        carro.productos.push({producto:idp})
+        let carro = await carroModel.findById(idc).populate("productos")
+        carro.productos.push({_id:idp})
         await carroModel.updateOne({_id:idc},carro)
+        console.log(JSON.stringify(carro, null, "\t"));
         return carro
     }
 
-    elimiarProducto= async(idc,idp)=>{
-        let carro = await carroModel.findOne({_id:idc}).populate("productos.producto")
-        console.log(carro);
-    }
+    // elimiarProducto= async(idc,idp)=>{
+        
+    //     let carro = await carroModel.findOne(
+    //          {_id:idc},
+    //     {
+    //     productos:{$elemMatch:{_id:idp}},
+    //     }
+    //     );
 
+    //    let filtrado= await carroModel.updateOne({_id: idc},
+    //     {$pull:{productos:{_id: idp}}},)
+    //     console.log(filtrado);
+    //     //     console.log(carro);
+    //     //     return carro[0]
+    // }
+
+
+    eliminarProducto = async (cartid,productid) => {
+            const { products } = await carroModel.findOne(
+                { _id: cartid },
+                {
+                  productos: { $elemMatch: { id: productid } },
+                }
+              );
+
+              await carroModel.updateOne(
+                { _id: cartid },
+                {
+                  $pull: { productos: { _id: productid } },
+                  //$set: { total: newTotal },
+                }
+              );
+            }
+    
     getAllCarritos = async()=>{
-        let carritos = await carroModel.find().lean().populate("productos.producto")
-       //  console.log(carritos);
-         console.log(JSON.stringify(carritos, null, "\t"));
+        let carritos = await carroModel.find().lean().populate("productos")
+       console.log(carritos);
+       console.log(JSON.stringify(carritos, null, "\t"));
+
         return carritos
     }
     filtrarCarro = async(idc)=>{
-        let carrito = await carroModel.findOne({_id:idc}).populate("productos.producto")
+        let carrito = await carroModel.findOne({_id:idc}).populate("productos")
         console.log(JSON.stringify(carrito, null, "\t"));
         return carrito
     }
@@ -44,5 +74,7 @@ export default class Carritos{
 
 }
 
-const prueba = new Carritos()
-prueba.elimiarProducto("649c3660e6fade7b1c6a2d01","6499cdce713bae8324590b6b")
+ const prueba = new Carritos()
+ //prueba.getAllCarritos()
+ //prueba.ingresarProducto("649da5b1c2f3808823763950","649d8afd150d7e4b0aa5a3d3")
+// prueba.eliminarProducto("649da5b1c2f3808823763950","649d8aba150d7e4b0aa5a3d1")
