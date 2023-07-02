@@ -1,6 +1,7 @@
 import { Router } from "express";
 import ProductManager from '../controladores/productManager.js';
 import Producto from "../dao/dbManagers/productos.js";
+import cookieParser from "cookie-parser";
 
 const producto = new ProductManager();
 const productoDb = new Producto();
@@ -36,10 +37,11 @@ const rutas = Router()
 //       res.send(await producto.crearProducto(nuevoProducto));
 //       console.log(nuevoProducto);
 //    }) 
-
    //mondb
+   
 
    //llamar a los productos 
+         
         rutas.get("/todos", async(req,res)=>{
             let producto = await productoDb.getAll()
             res.json({status:"success", payload: producto})
@@ -64,7 +66,7 @@ const rutas = Router()
             let producto = await productoDb.filtrarProducto(id)
             res.json({status:"success",payload: producto})
          })
-
+         
       // paginate
 
       rutas.get("/", async(req,res)=>{
@@ -87,10 +89,10 @@ const rutas = Router()
 
            }
           })
-         })
+         });
 
-
-
+   
+   
 
 
 

@@ -1,5 +1,4 @@
 import express from 'express';
-import ProductManager from './controladores/productManager.js';
 import rutas from './router/products.routes.js';
 import rutasCarritos from './router/car.routes.js';
 import router from './router/user.router.js';
@@ -9,10 +8,8 @@ import path from "path";
 import __dirname from './utils.js';
 import { Server} from 'socket.io';
 import mongoose from 'mongoose';
-import { carroModel } from './dao/models/carros.js';
+import cookieParser from 'cookie-parser';
 
-
-const producto = new ProductManager();
 const app = express();
 const puerto = 8080;
 // mongodb 
@@ -37,7 +34,35 @@ app.use("/api/carrito", rutasCarritos)
 app.use("/", vistaRouter)
 app.use("/api/usuarios", router);
  
+//cookie
 
+app.use(cookieParser("Coder"))
+
+// crear cookie
+app.get("/setCookie", async(req,res)=>{
+  res
+  .cookie("CoderCookie","esta es una cookie muy poderosa",{maxAge:10000000})
+  .send("Cookie")
+  });
+
+  app.get("/setSingCookie", async(req,res)=>{
+    res
+    .cookie("SingCookie","esta es una cookie muy poderosa",{maxAge:10000,signed: true})
+    .send("Cookie")
+  
+  });
+//optener cookie
+app.get("/getCookies", async (req,res)=>{
+  res.send(req.cookies)
+})
+
+app.get("/getSignedCookies", async (req,res)=>{
+  res.send(req.signedCookies)
+})
+//borrar cookie
+app.get("/deleteCookie", async(req,res)=>{
+  res.clearCookie("CoderCookie").send("Cookie removed")
+})
 
 const httpServer = app.listen(puerto, ()=>{
     console.log("Trabajando por el puerto 8080"); 
