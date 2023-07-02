@@ -72,9 +72,23 @@ const rutas = Router()
          let orden = req.query.orden
          let limit = req.query.limit
          let pages = req.query.pages
-         let productosPaginate = await productoDb.getAllPaginate(category,orden,limit,pages)
-         res.json({status:"success",payload: productosPaginate.arreglo})
-      })
+         let result = await productoDb.getAllPaginate(category,orden,limit,pages)
+         res.json({status:"success",payload: result.arreglo, 
+           info:{
+                 limit:result.limit,
+                 page:result.page,
+                 totalPages:result.totalPages,
+                 page:result.page,
+                 pagingCounter:result.pagingCounter,
+                 hasPrevPage:result.hasPrevPage,
+                 hasNextPage:result.hasNextPage,
+                 prevPage:result.prevPage,
+                 nextPage:result.nextPage
+
+           }
+          })
+         })
+
 
 
 

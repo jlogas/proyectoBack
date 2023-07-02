@@ -37,9 +37,10 @@ export default class Producto{
                  nextPage:result.nextPage
             }
             
-            console.log("info paginate", data);
+            //console.log("info paginate", data);
             return data
           })
+
           console.log(productos);
           return productos
           
@@ -57,5 +58,5 @@ export default class Producto{
     }
 } 
 
-// const prueba = new Producto()
-// prueba.getAllPaginate()
+ //const prueba = new Producto()
+//prueba.getAllPaginate() 
