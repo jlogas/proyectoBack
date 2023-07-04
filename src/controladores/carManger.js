@@ -5,7 +5,7 @@ const productos =  new ProductManager
 
 class CarManager{
     constructor(){
-        this.path = "/Users/juanjose/Desktop/proyectoBackend/src/modelos/carrito.json"
+        this.path = "src/modelos/carrito.json"
     }
 
 

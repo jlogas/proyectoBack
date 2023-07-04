@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 class ProductManager{
     static countId = 0
     constructor(){
-        this.path = "/Users/juanjose/Desktop/proyectoBackend/src/modelos/productos.json"
+        this.path = "src/modelos/productos.json"
     }
     parsearArray = async()=>{
         let productos = await promises.readFile(this.path, "utf-8")
