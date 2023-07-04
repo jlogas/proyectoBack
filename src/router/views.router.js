@@ -9,7 +9,7 @@ const vistaRouter = Router();
 vistaRouter.get("/register", async(req,res)=>{
   res.render("register")
 })
-vistaRouter.get("/login", async(req,res)=>{
+vistaRouter.get("/", async(req,res)=>{
   res.render("login")
 })
 vistaRouter.get("/profile", async(req,res)=>{

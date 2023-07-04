@@ -1,5 +1,4 @@
 import { productoModel } from "../models/productos.js";
-import mongoose from "mongoose";
 
 export default class Producto{
 
@@ -8,9 +7,9 @@ export default class Producto{
     }
 
     getAll = async()=>{
-        let productos = await productoModel.find()
+        let productos = await productoModel.find().lean()
         console.log(productos);
-        return productos.map(producto => producto.toObject())
+        return productos
     }
 
     getAllPaginate = async( categoryR,ordenR,limitR,pageR)=>{
@@ -41,7 +40,6 @@ export default class Producto{
             return data
           })
 
-          console.log(productos);
           return productos
           
     };
@@ -53,7 +51,6 @@ export default class Producto{
 
     filtrarProducto = async(id)=>{
         let productoFiltrado = await productoModel.find({_id:id})
-        console.log(productoFiltrado);
         return productoFiltrado
     }
 } 

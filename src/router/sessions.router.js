@@ -22,4 +22,9 @@ routerSessions.post('/login',async(req,res)=>{
     res.send({status:"success"})
 })
 
+routerSessions.post("/logout",(req,res)=>{
+    req.session.destroy()
+    res.send({status:"success"}).redirect("/")
+})
+
 export default routerSessions

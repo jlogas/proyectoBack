@@ -15,6 +15,6 @@
     const responseData = await response.json();
     if (responseData.status === 'success') {
     
-      window.location.replace('/login');  
+      window.location.replace('/');  
     }
   });
