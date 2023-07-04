@@ -1,7 +1,7 @@
 import { Router } from "express";
 import ProductManager from '../controladores/productManager.js';
 import Producto from "../dao/dbManagers/productos.js";
-import cookieParser from "cookie-parser";
+
 
 const producto = new ProductManager();
 const productoDb = new Producto();

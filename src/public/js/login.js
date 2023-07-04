@@ -7,11 +7,15 @@ form.addEventListener('submit', async (event) => {
   data.forEach((value, key) => (obj[key] = value));
   const response = await fetch('/api/sessions/login', {
     method: 'POST',
-    body: JSON.stringify(obj),
+    body: JSON.stringify(obj),  
     headers: {
       'Content-Type': 'application/json',
     },
   });
   const responseData = await response.json();
-  console.log(responseData);
+  if (responseData.status === 'success') {
+    
+    window.location.replace('/productos');  
+  }
+
 });
