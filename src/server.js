@@ -13,6 +13,9 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
+
 const app = express();
 const puerto = 8080;
 
@@ -39,10 +42,12 @@ app.use(session({
   secret: "coder",
   resave:false,
   saveUninitialized: false,
-}))
+}));
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
 
 //ruteo
-
 app.use("/", vistaRouter) 
 app.use("/api/sessions",routerSessions)
 app.use("/api/productos", rutas)
