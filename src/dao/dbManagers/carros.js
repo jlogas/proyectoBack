@@ -42,9 +42,7 @@ export default class Carritos{
             }
     
     getAllCarritos = async()=>{
-        let carritos = await carroModel.find().lean().populate("productos")
-       console.log(carritos);
-
+        let carritos = await carroModel.find().lean().populate("productos");
         return carritos
     }
     filtrarCarro = async(idc)=>{
@@ -54,8 +52,3 @@ export default class Carritos{
 
 
 }
-
- const prueba = new Carritos()
- //prueba.getAllCarritos()
- //prueba.ingresarProducto("649da5b1c2f3808823763950","649d8afd150d7e4b0aa5a3d3")
-// prueba.eliminarProducto("649da5b1c2f3808823763950","649d8aba150d7e4b0aa5a3d1")

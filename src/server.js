@@ -1,10 +1,8 @@
 import express from 'express';
+import  config  from './config/config.js';
 
-import rutas from './router/products.routes.js';
-import rutasCarritos from './router/car.routes.js';
 import vistaRouter from './router/views.router.js';
-import routerSessions from './router/sessions.router.js';
-
+import mainRouter from './router/index.js';
 import { engine } from 'express-handlebars';
 import path from "path";
 import __dirname from './utils.js';
@@ -16,12 +14,19 @@ import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 
+
+
+
 const app = express();
-const puerto = 8080;
+const puerto = config.PORT;
+const mongo = config.MONGO_URL; 
+
+// config
+
+console.log(config);
 
 // mongodb 
-await mongoose.connect("mongodb+srv://juanjlogas:coder@cluster0.apal9tl.mongodb.net/?retryWrites=true&w=majority");
-
+await mongoose.connect(mongo)
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
@@ -36,7 +41,7 @@ app.use(express.static(`${__dirname}/public`));
 //iniciar sesion
 app.use(session({
   store: MongoStore.create({
-    mongoUrl:"mongodb+srv://juanjlogas:coder@cluster0.apal9tl.mongodb.net/?retryWrites=true&w=majority",
+    mongoUrl:mongo,
     ttl: 3600,
   }),
   secret: "coder",
@@ -49,18 +54,13 @@ app.use(passport.session())
 
 //ruteo
 app.use("/", vistaRouter) 
-app.use("/api/sessions",routerSessions)
-app.use("/api/productos", rutas)
-app.use("/api/carrito", rutasCarritos)
-
-
- 
-
+app.use("/api", mainRouter)
 
 
 const httpServer = app.listen(puerto, ()=>{
     console.log("Trabajando por el puerto 8080"); 
 })
+
 
 
 //socket

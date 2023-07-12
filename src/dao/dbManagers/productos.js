@@ -7,8 +7,7 @@ export default class Producto{
     }
 
     getAll = async()=>{
-        let productos = await productoModel.find().lean()
-        console.log(productos);
+        let productos = await productoModel.find().lean();
         return productos
     }
 
@@ -55,5 +54,4 @@ export default class Producto{
     }
 } 
 
- //const prueba = new Producto()
-//prueba.getAllPaginate() 
+ 
