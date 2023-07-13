@@ -14,12 +14,40 @@ import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 
+import { createTransport } from 'nodemailer';
 
 
 
 const app = express();
 const puerto = config.PORT;
 const mongo = config.MONGO_URL; 
+const TEST_MAIL = 'kira.haley@ethereal.email'
+
+//nodemailer//etheral
+const transporter = createTransport({
+  host: 'smtp.ethereal.email',
+  port: 587,
+  auth: {
+      user: TEST_MAIL,
+      pass: 'SvfJhdN3wU1AYjMrkV'
+  }
+});
+//DATA
+const emailContent = {
+  from: "mi primer proyecto con nodemailer",
+  to: `desarrollador <${TEST_MAIL}>`,
+  subject: "primera prueba correo",
+  text: "buenas...",
+  html:"<h1>implementacion html </h1>"
+}
+
+try {
+  const email= await transporter.sendMail(emailContent)
+  console.log(email);
+} catch (err) {
+  console.log("ERROR",err);
+}
+
 
 // config
 
@@ -60,8 +88,6 @@ app.use("/api", mainRouter)
 const httpServer = app.listen(puerto, ()=>{
     console.log("Trabajando por el puerto 8080"); 
 })
-
-
 
 //socket
 const io = new Server(httpServer);
