@@ -53,7 +53,7 @@ const rutas = Router()
             title,
             description,
             code,
-            price,
+            price, 
             status,
             stock,
             category

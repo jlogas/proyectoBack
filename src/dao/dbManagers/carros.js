@@ -1,4 +1,6 @@
 import { carroModel } from "../models/carros.js";
+import { ticketsModel } from "../models/ticket.js";
+import { productoModel } from "../models/productos.js";
 import Producto from "./productos.js";
 
 const producto = new Producto()
@@ -16,7 +18,7 @@ export default class Carritos{
         return newCarrito
     }
 
-    ingresarProducto = async(idc,idp)=>{
+    ingresarProducto = async(idc,idp,cantidad)=>{
         let carro = await carroModel.findById(idc).populate("productos")
         carro.productos.push({_id:idp})
         await carroModel.updateOne({_id:idc},carro)
@@ -50,5 +52,34 @@ export default class Carritos{
         return carrito
     }
 
+    crearTicket = async(cid)=>{
+      let carrito = await carroModel.findOne({_id: cid}).populate("productos")
+      const productos = carrito.productos;
+      console.log(productos);
+      const precios = productos.map(objeto => objeto.price);
+      const suma = precios.reduce((total, precio) => total + precio, 0);
+      console.log(suma);
 
-}
+     
+            
+        try {
+
+          let compra ={
+            "code": cid,
+            "amount": suma,
+            "email": ""
+          }
+          
+         let result = await ticketsModel.create(compra)
+        } catch (error) {
+          
+        }
+      }
+      
+     
+    }
+
+
+const prueba = new Carritos()
+
+prueba.crearTicket("649da5b1c2f3808823763950")

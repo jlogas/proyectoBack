@@ -46,8 +46,8 @@ rutasCarritos.get("/", async(req,res)=>{
  // agregar producto al carro
 
  rutasCarritos.post("/:idc/:idp",async(req,res)=>{
-    const {idc,idp}=req.body
-    let agregar= await carrosdb.ingresarProducto({idc,idp})
+    const {idc,idp,cantidad}=req.body
+    let agregar= await carrosdb.ingresarProducto({idc,idp,cantidad})
     res.json({statusL:"success", payload: agregar})
  })
 

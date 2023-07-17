@@ -38,7 +38,12 @@ const emailContent = {
   to: `desarrollador <${TEST_MAIL}>`,
   subject: "primera prueba correo",
   text: "buenas...",
-  html:"<h1>implementacion html </h1>"
+  html:"<h1>implementacion html </h1>",
+  attacments:[
+    {
+      
+    }
+  ]
 }
 
 try {
