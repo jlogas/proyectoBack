@@ -52,34 +52,35 @@ export default class Carritos{
         return carrito
     }
 
-    crearTicket = async(cid)=>{
-      let carrito = await carroModel.findOne({_id: cid}).populate("productos")
-      const productos = carrito.productos;
-      console.log(productos);
-      const precios = productos.map(objeto => objeto.price);
-      const suma = precios.reduce((total, precio) => total + precio, 0);
-      console.log(suma);
-
-     
-            
-        try {
-
-          let compra ={
-            "code": cid,
-            "amount": suma,
-            "email": ""
-          }
-          
-         let result = await ticketsModel.create(compra)
-        } catch (error) {
-          
-        }
+    crearTicket = async (cid) => {
+      try {
+        let carrito = await carroModel.findOne({ _id: cid }).populate("productos");
+        const productos = carrito.productos;
+        const precios = productos.map(objeto => objeto.price);
+        const suma = precios.reduce((total, precio) => total + precio, 0);
+        const productosID = productos.map(producto => producto._id);
+    
+        await productoModel.updateMany(
+          { _id: { $in: productosID } },
+          { $inc: { stock: -1 } }
+        );
+    
+        console.log("Productos actualizados");
+    
+        let compra = {
+          "code": cid,
+          "amount": suma,
+          "email": "" 
+        };
+    
+        let result = await ticketsModel.create(compra);
+      } catch (error) {
+        console.error("Error al crear el ticket:", error);
       }
+
+      return result
+    };
+    
       
      
     }
-
-
-const prueba = new Carritos()
-
-prueba.crearTicket("649da5b1c2f3808823763950")
