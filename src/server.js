@@ -15,6 +15,7 @@ import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 
 import { createTransport } from 'nodemailer';
+import compression from 'express-compression';
 
 
 
@@ -23,6 +24,8 @@ const puerto = config.PORT;
 const mongo = config.MONGO_URL; 
 const TEST_MAIL = 'kira.haley@ethereal.email'
 
+
+app.use(compression())
 //nodemailer//etheral
 const transporter = createTransport({
   host: 'smtp.ethereal.email',
@@ -48,7 +51,7 @@ const emailContent = {
 
 try {
   const email= await transporter.sendMail(emailContent)
-  console.log(email);
+
 } catch (err) {
   console.log("ERROR",err);
 }

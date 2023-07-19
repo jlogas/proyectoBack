@@ -1,6 +1,7 @@
 import { Router } from "express";
 import ProductManager from '../controladores/productManager.js';
 import Producto from "../dao/dbManagers/productos.js";
+import generate from "../productosMock.utils.js";
 
 
 const producto = new ProductManager();
@@ -40,8 +41,12 @@ const rutas = Router()
    //mondb
    
 
-   //llamar a los productos 
-         
+   //mock
+         rutas.get("/mock", (req, res)=>{
+         const mock = generate(100);
+         res.send(mock)
+         })
+   //llamar a los productos          
         rutas.get("/todos", async(req,res)=>{
             let producto = await productoDb.getAll()
             res.json({status:"success", payload: producto})
@@ -90,6 +95,10 @@ const rutas = Router()
            }
           })
          });
+
+         //mock
+
+   
 
    
    
