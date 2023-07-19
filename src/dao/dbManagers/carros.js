@@ -74,11 +74,11 @@ export default class Carritos{
         };
     
         let result = await ticketsModel.create(compra);
+        return result 
       } catch (error) {
         console.error("Error al crear el ticket:", error);
       }
 
-      return result
     };
     
       

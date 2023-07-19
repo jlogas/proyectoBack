@@ -1,7 +1,7 @@
 import passport from "passport"
 import local from "passport-local"
 import userModel from "../dao/models/user.js"
-import { createHash, isValidPassword } from "../utils/utils.js"
+import { createHash, isValidPassword } from "../utils.js"
 
 const localStrategy = local.Strategy
 
@@ -9,7 +9,7 @@ const initializePassport = () => {
 
     passport.use("register", new localStrategy(
         {passReqToCallback: true, usernameField: "email"}, async(req, username, password, done) => {
-            const { first_name, last_name, email,age } = req.body
+            const { first_name, last_name, email,age,rol } = req.body
             try {
                 let user = await userModel.findOne({ email: username})
                 if(user) {
@@ -21,7 +21,8 @@ const initializePassport = () => {
                     last_name,
                     email,
                     age,
-                    password: createHash(password)
+                    password: createHash(password),
+                    rol
                 }
                 let result = await userModel.create(newUser)
                 return done(null, result)
@@ -44,7 +45,7 @@ const initializePassport = () => {
             } catch(err) {
                 return done(err)
             }
-        } 
+        }   
     ))
     
     passport.serializeUser((user, done) => {
@@ -54,7 +55,25 @@ const initializePassport = () => {
     passport.deserializeUser(async(id, done) => {
         const user = userModel.findById(id)
         done(null, user)
-    })
+    });
+
+
+    
 } 
+
+export const authorization = (rol) => {
+    return (req, res, next) => {
+      console.log('midelware',req.session.user.rol)
+      console.log('midelware',req.user.rol)
+
+      if (req.isAuthenticated() && req.session.user.rol === rol) {
+        
+        return next();
+        
+      } else {
+        return res.send("Acceso denegado");
+      }
+    };
+}
 
 export default initializePassport

@@ -1,7 +1,6 @@
 import { Router } from "express";
-import userModel from "../dao/models/user.js"
 import passport from "passport";
-import { createHash, isValidPassword } from "../utils/utils.js";
+
 
 const routerSessions = Router();
 
@@ -22,12 +21,9 @@ routerSessions.post('/login', passport.authenticate("login") ,async(req,res)=>{
         last_name: req.user.last_name,
         email: req.user.email,
         age: req.user.age,
+        rol: req.user.rol
      }
-    req.session.user = {
-        name: `${req.user.first_name} ${req.user.last_name}`,
-        email:req.user.email
-    }
-
+   
     res.send({status:"success", payload:req.user})
 })
 

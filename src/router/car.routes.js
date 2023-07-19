@@ -1,6 +1,7 @@
 import { Router } from "express";
 import CarManager from "../controladores/carManger.js";
 import Carritos from "../dao/dbManagers/carros.js";
+import { authorization } from "../config/passport.config.js";
 
 
 const rutasCarritos = Router()
@@ -31,7 +32,7 @@ const carrosdb = new Carritos()
 // })
 
 // obtener todo los carritos
-rutasCarritos.get("/", async(req,res)=>{
+rutasCarritos.get("/",authorization("admin"), async(req,res)=>{
     let carro = await carrosdb.getAllCarritos()
     res.json({statusL:"success", payload: carro})
 }) 

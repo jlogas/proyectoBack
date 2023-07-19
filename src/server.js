@@ -5,7 +5,7 @@ import vistaRouter from './router/views.router.js';
 import mainRouter from './router/index.js';
 import { engine } from 'express-handlebars';
 import path from "path";
-import __dirname from './utils/utils.js';
+import __dirname from './utils.js';
 import { Server} from 'socket.io';
 import mongoose from 'mongoose';
 import session from 'express-session';
@@ -16,7 +16,7 @@ import initializePassport from './config/passport.config.js';
 
 import { createTransport } from 'nodemailer';
 import compression from 'express-compression'
-
+ 
 
 
 const app = express();
