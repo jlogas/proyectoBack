@@ -46,7 +46,7 @@ export default class Producto{
     crearProducto = async(producto)=>{
         let nuevoProducto = await productoModel.create(producto)
         return nuevoProducto 
-    }
+    } 
 
     filtrarProducto = async(id)=>{
         let productoFiltrado = await productoModel.find({_id:id})

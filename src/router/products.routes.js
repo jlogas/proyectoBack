@@ -1,8 +1,10 @@
 import { Router } from "express";
 import ProductManager from '../controladores/productManager.js';
 import Producto from "../dao/dbManagers/productos.js";
-import generate from "../productosMock.utils.js";
-
+import generate from "../utils/productosMock.utils.js";
+import generateUserErrorInfo from "../utils/errores/info.errors.js"
+import EnumErrors from "../utils/errores/enum.errors.js";
+import CustomErrors from "../utils/errores/custom.errors.js";
 
 const producto = new ProductManager();
 const productoDb = new Producto();
@@ -54,6 +56,14 @@ const rutas = Router()
    // crear producto
         rutas.post("/", async(req,res)=>{
          const {title, description,code,price,status,stock,category} = req.body
+         if (!title||!description || !code || !price || !stock || !category) {
+            CustomErrors.createError({
+            name: "error en la creacion del producto",
+            cause: generateUserErrorInfo({ first_name, last_name, email }),
+            message: "No se cumple con las espicificaciones del Schema ",
+            code: EnumErrors.INVALID_TYPES_ERROR,
+            })
+         }
          let nuevoProducto = await productoDb.crearProducto({
             title,
             description,

@@ -5,7 +5,7 @@ import vistaRouter from './router/views.router.js';
 import mainRouter from './router/index.js';
 import { engine } from 'express-handlebars';
 import path from "path";
-import __dirname from './utils.js';
+import __dirname from './utils/utils.js';
 import { Server} from 'socket.io';
 import mongoose from 'mongoose';
 import session from 'express-session';
@@ -15,7 +15,7 @@ import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 
 import { createTransport } from 'nodemailer';
-import compression from 'express-compression';
+import compression from 'express-compression'
 
 
 
@@ -25,7 +25,7 @@ const mongo = config.MONGO_URL;
 const TEST_MAIL = 'kira.haley@ethereal.email'
 
 
-app.use(compression())
+
 //nodemailer//etheral
 const transporter = createTransport({
   host: 'smtp.ethereal.email',
@@ -96,6 +96,8 @@ app.use("/api", mainRouter)
 const httpServer = app.listen(puerto, ()=>{
     console.log("Trabajando por el puerto 8080"); 
 })
+
+app.use(compression())
 
 //socket
 const io = new Server(httpServer);
