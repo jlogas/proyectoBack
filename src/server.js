@@ -17,14 +17,19 @@ import initializePassport from './config/passport.config.js';
 import { createTransport } from 'nodemailer';
 import compression from 'express-compression'
  
-
+import { addLogger } from './utils/logger.js';
 
 const app = express();
 const puerto = config.PORT;
 const mongo = config.MONGO_URL; 
 const TEST_MAIL = 'kira.haley@ethereal.email'
 
+app.use(addLogger)
 
+app.get("/test", (req,res)=>{
+  req.logger.warning("alerta");
+  res.send({message: "prueba"})
+})
 
 //nodemailer//etheral
 const transporter = createTransport({
