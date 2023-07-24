@@ -1,9 +1,12 @@
 import { productoModel } from "../models/productos.js";
 
+
+import { logger } from "../../utils/logger.js";
+
 export default class Producto{
 
     constructor(){
-        console.log("instancio Producto con mongodb");
+        logger.info("instancio Producto con mongodb");
     }
 
     getAll = async()=>{

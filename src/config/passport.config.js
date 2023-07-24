@@ -2,6 +2,7 @@ import passport from "passport"
 import local from "passport-local"
 import userModel from "../dao/models/user.js"
 import { createHash, isValidPassword } from "../utils.js"
+import { logger } from "../utils/logger.js"
 
 const localStrategy = local.Strategy
 
@@ -13,7 +14,7 @@ const initializePassport = () => {
             try {
                 let user = await userModel.findOne({ email: username})
                 if(user) {
-                    console.log("El usuario ya existe")
+                    logger.warning("El usuario ya existe(passport.config)")
                     return done(null, false)
                 }
                 let newUser = {
@@ -37,7 +38,7 @@ const initializePassport = () => {
             try {
             const user = await userModel.findOne({email: username})
             if(!user) {
-                console.log("El usuario no existe")
+                logger.warning("El usuario no existe")
                 done(null, false)
             }
             if(!isValidPassword(user, password)) return done(null, false)

@@ -18,6 +18,7 @@ import { createTransport } from 'nodemailer';
 import compression from 'express-compression'
  
 import { addLogger } from './utils/logger.js';
+import {logger} from './utils/logger.js'
 
 const app = express();
 const puerto = config.PORT;
@@ -99,7 +100,7 @@ app.use("/api", mainRouter)
 
 
 const httpServer = app.listen(puerto, ()=>{
-    console.log("Trabajando por el puerto 8080"); 
+    logger.info("Trabajando por el puerto 8080") 
 })
 
 app.use(compression())

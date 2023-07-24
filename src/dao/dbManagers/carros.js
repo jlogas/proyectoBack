@@ -3,12 +3,14 @@ import { ticketsModel } from "../models/ticket.js";
 import { productoModel } from "../models/productos.js";
 import Producto from "./productos.js";
 
+import { logger } from "../../utils/logger.js";
+
 const producto = new Producto()
 
 export default class Carritos{
 
     constructor(){
-        console.log("instacion carritos con mongodb");
+        logger.info("instacion carritos con mongodb")
     }
 
   
@@ -56,16 +58,23 @@ export default class Carritos{
       try {
         let carrito = await carroModel.findOne({ _id: cid }).populate("productos");
         const productos = carrito.productos;
-        const precios = productos.map(objeto => objeto.price);
+
+        const productosStock = productos.filter(producto => producto.stock >= 0)
+
+        if (productosStock === 0){
+          logger.warning("no se tienen productos suficiente para crear stock");
+        }
+
+        const precios = productosStock.map(objeto => objeto.price);
         const suma = precios.reduce((total, precio) => total + precio, 0);
-        const productosID = productos.map(producto => producto._id);
+        const productosID = productosStock.map(producto => producto._id);
     
         await productoModel.updateMany(
           { _id: { $in: productosID } },
           { $inc: { stock: -1 } }
         );
     
-        console.log("Productos actualizados");
+        logger.info("Productos actualizados");
     
         let compra = {
           "code": cid,
