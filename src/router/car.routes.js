@@ -31,6 +31,12 @@ rutasCarritos.get("/",authorization("admin"), async(req,res)=>{
     let agregar= await carrosdb.ingresarProducto({idc,idp,cantidad})
     res.json({statusL:"success", payload: agregar})
  })
+// crear ticket
 
+rutasCarritos.post("/:idc/purchase"), async(req,res)=>{
+   const {idc} = req.params.idc;
+   let ticket = await carrosdb.crearTicket(idc)
+   res.send({ status: "succes", payload: ticket })
+}
 
 export default rutasCarritos
