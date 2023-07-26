@@ -12,7 +12,7 @@ const carrosdb = new Carritos()
 
 
 // obtener todo los carritos
-rutasCarritos.get("/",authorization("admin"), async(req,res)=>{
+rutasCarritos.get("/", async(req,res)=>{
     let carro = await carrosdb.getAllCarritos()
     res.json({statusL:"success", payload: carro})
 }) 

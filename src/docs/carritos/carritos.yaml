@@ -1,0 +1,20 @@
+openapi: "3.1.0"
+info:
+  title: API de Productos
+  version: "1.0"
+paths:
+  /api/carrito:
+    get:
+      summary: Obtiene todos los carritos
+      tags:
+        - Productos
+      responses:
+        "200":
+          description: Lista de carritos obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/carros"
+  
