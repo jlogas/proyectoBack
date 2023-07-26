@@ -31,6 +31,17 @@ vistaRouter.get("/carritos", async(req,res)=>{
   res.render("carritos",{carritos})
 })
 
-
+vistaRouter.get("/reset-password",(req,res)=>{
+  res.render("reset_password")
+})
+vistaRouter.get("/reset-password/:token", async (req,res)=>{
+  const {token}=req.params;
+  try {
+    res.render("reset",{token})
+  } catch (error) {
+    console.log("Error al procesar el enlace de restablecimiento de contraseña", error);
+    res.status(500).send({ status: "error", error: "Ha ocurrido un error al procesar el enlace de restablecimiento de contraseña"})
+  }
+})
 
 export default vistaRouter;

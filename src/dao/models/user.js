@@ -8,7 +8,9 @@ const userSchema = new mongoose.Schema({
     email: String,
     age: Number,
     password: String,
-    rol:{type: String, default:"use"}
+    rol:{type: String, default:"use"},
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
 })
 
 const userModel = mongoose.model(collection,userSchema);
