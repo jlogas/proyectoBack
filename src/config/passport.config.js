@@ -6,7 +6,7 @@ import { logger } from "../utils/logger.js"
 
 const localStrategy = local.Strategy
 
-const initializePassport = () => {
+ const initializePassport = () => {
 
     passport.use("register", new localStrategy(
         {passReqToCallback: true, usernameField: "email"}, async(req, username, password, done) => {
@@ -34,7 +34,7 @@ const initializePassport = () => {
     ))
     
     passport.use("login", new localStrategy(
-        {usernameField: "email"} , async(username, password, done) => {
+        {usernameField: "email"} ,async(username, password, done) => {
             try {
             const user = await userModel.findOne({email: username})
             if(!user) {
@@ -62,7 +62,7 @@ const initializePassport = () => {
     
 } 
 
-export const authorization = (rol) => {
+export const authorization = (rol) =>  {
     return (req, res, next) => {
       console.log('midelware',req.session.user.rol)
       console.log('midelware',req.user.rol)

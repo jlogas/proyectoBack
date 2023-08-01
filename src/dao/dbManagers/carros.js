@@ -4,6 +4,7 @@ import { productoModel } from "../models/productos.js";
 import Producto from "./productos.js";
 
 import { logger } from "../../utils/logger.js";
+import { ne } from "@faker-js/faker";
 
 const producto = new Producto()
 
@@ -54,17 +55,18 @@ export default class Carritos{
         return carrito
     }
 
-    crearTicket = async (cid) => {
+    crearTicket = async (cid, req) => {
       try {
         let carrito = await carroModel.findOne({ _id: cid }).populate("productos");
         const productos = carrito.productos;
-
-        const productosStock = productos.filter(producto => producto.stock >= 0)
-
-        if (productosStock === 0){
-          logger.warning("no se tienen productos suficiente para crear stock");
+    
+        const productosStock = productos.filter(producto => producto.stock >= 0);
+    
+        if (productosStock.length === 0) {
+          logger.warning("No se tienen productos suficientes para crear el ticket.");
+          return; // Devuelve sin crear el ticket si no hay productos disponibles en stock.
         }
-
+    
         const precios = productosStock.map(objeto => objeto.price);
         const suma = precios.reduce((total, precio) => total + precio, 0);
         const productosID = productosStock.map(producto => producto._id);
@@ -79,17 +81,20 @@ export default class Carritos{
         let compra = {
           "code": cid,
           "amount": suma,
-          "email": "" 
+          "email": req.user.email
         };
     
         let result = await ticketsModel.create(compra);
-        return result 
+        return result;
       } catch (error) {
         console.error("Error al crear el ticket:", error);
       }
-
     };
     
       
      
     }
+const prueba = new Carritos
+
+//prueba.crearTicket()
+

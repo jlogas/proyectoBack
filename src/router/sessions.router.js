@@ -134,7 +134,7 @@ routerSessions.post("/reset-password/:token", async (req, res) => {
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() }, // Verificar si el token no ha expirado
       });
-
+ 
       if (!user) {
         // Si el usuario no existe o el token ha expirado, mostrar un mensaje de error
         return res.status(400).send({ status: "error", error: "El token es inválido o ha expirado" });
