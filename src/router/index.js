@@ -10,4 +10,4 @@ mainRouter.use("/productos", rutas);
 mainRouter.use("/carrito", rutasCarritos)
 mainRouter.use("/sessions",routerSessions)
 
-export default mainRouter 
+export default mainRouter  

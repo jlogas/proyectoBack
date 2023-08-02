@@ -5,7 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "mocha test/supertest.test.js",
+    "test1": "mocha test/productos.test.js",
+    "test2": "mocha test/carros.test.js",
     "dev": "nodemon ./src/server.js"
   
   },

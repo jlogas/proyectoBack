@@ -16,7 +16,7 @@ rutasCarritos.get("/", async(req,res)=>{
     let carro = await carrosdb.getAllCarritos()
     res.json({statusL:"success", payload: carro})
 }) 
-
+ 
 // agregar carrito 
  rutasCarritos.post("/",async(req,res)=>{
     const {producto}=req.body
