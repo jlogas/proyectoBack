@@ -1,6 +1,11 @@
-  {{#each carritos}}
+  <section>
+    <h1>hola: {{user.first_name}}</h1>
+    <h2>email:{{user.email}}</h2>
+</section>
   
-    <p>Id: {{this._id}}</p>
+  {{#each carritos}}
+   <hr>
+    <h3>Id del carro : {{this._id}}</h3>
       {{#each this.productos}}
     <hr>
     <p>id: {{this._id}}</p>
@@ -11,5 +16,8 @@
     <p>estatus: {{this.status}}</p>  
     <p>stock: {{this.stock}}</p> 
     <p>categoria: {{this.category}}</p> 
+    <hr>
       {{/each}}
       {{/each}}
+
+      <script src="./js/logout.js"></script> 

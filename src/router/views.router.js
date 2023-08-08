@@ -28,8 +28,19 @@ vistaRouter.get("/productos", async(req,res)=>{
 
 vistaRouter.get("/carritos", async(req,res)=>{
   let carritos = await carritosdb.getAllCarritos()
-  res.render("carritos",{carritos})
+  res.render("carritos",{
+    carritos,
+    user: req.session.user
+  })
 })
+
+vistaRouter.post('/api/carrito/agregar/:idp', async (req, res) => {
+  const idc = "64aec0ed802346d916ff79d5"
+  const { idp } = req.params;
+  let carros = await carritosdb.ingresarProducto(idc,idp)
+  console.log(carros);
+  res.redirect("/productos");
+});
 
 vistaRouter.get("/reset-password",(req,res)=>{
   res.render("reset_password")

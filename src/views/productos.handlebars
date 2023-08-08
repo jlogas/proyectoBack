@@ -1,11 +1,12 @@
 <h1>Binevenidos</h1>
 <section>
-    <h1>hola: {{user.name}}</h1>
+    <h1>hola: {{user.first_name}}</h1>
     <h2>email:{{user.email}}</h2>
 </section>
 <form id="logout">
     <button type="submit"> SALIR</button>
 </form>
+<a href="/carritos" class="btn">Ver Carrito</a>
 
 {{#each productos}}
     <p>id: {{this._id}}</p>
@@ -16,10 +17,10 @@
     <p>estatus: {{this.status}}</p>  
     <p>stock: {{this.stock}}</p> 
     <p>categoria: {{this.category}}</p> 
-    <button>ingrse</button>
+    <button class="agregar-carrito" data-producto-id="{{this._id}}">agregar</button>
     <hr>
 {{/each}}
-
+<script src="./js/agregar-carrito.js"></script>
 <script src="./js/logout.js"></script> 
 
 

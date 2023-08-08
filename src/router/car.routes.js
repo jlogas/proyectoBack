@@ -12,7 +12,7 @@ const carrosdb = new Carritos()
 
 
 // obtener todo los carritos
-rutasCarritos.get("/", async(req,res)=>{
+rutasCarritos.get("/", async(req,res)=>{ 
     let carro = await carrosdb.getAllCarritos()
     res.json({statusL:"success", payload: carro})
 }) 
@@ -28,7 +28,7 @@ rutasCarritos.get("/", async(req,res)=>{
 
  rutasCarritos.post("/:idc/:idp",async(req,res)=>{
     const {idc,idp,cantidad}=req.body
-    let agregar= await carrosdb.ingresarProducto({idc,idp,cantidad})
+    let agregar= await carrosdb.ingresarProducto({idc,idp})
     res.json({statusL:"success", payload: agregar})
  })
 // crear ticket
@@ -37,7 +37,7 @@ rutasCarritos.post("/:idc"),passport.authenticate('login', { session: false }),a
    
    const {idc} = req.params;
 
-   let ticket = await carrosdb.crearTicket(idc,req)
+   let ticket = await carrosdb.crearTicket(idc)
    console.log(ticket);
    res.send({ status: "succes", payload: ticket })
 }

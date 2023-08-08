@@ -21,12 +21,13 @@ export default class Carritos{
         return newCarrito
     }
 
-    ingresarProducto = async(idc,idp,cantidad)=>{
+    ingresarProducto = async(idc,idp)=>{
         let carro = await carroModel.findById(idc).populate("productos")
         carro.productos.push({_id:idp})
         await carroModel.updateOne({_id:idc},carro)
         return carro
     }
+
 
 
     eliminarProducto = async (cartid,productid) => {
@@ -55,7 +56,7 @@ export default class Carritos{
         return carrito
     }
 
-    crearTicket = async (cid, req) => {
+    crearTicket = async (cid) => {
       try {
         let carrito = await carroModel.findOne({ _id: cid }).populate("productos");
         const productos = carrito.productos;
@@ -81,7 +82,7 @@ export default class Carritos{
         let compra = {
           "code": cid,
           "amount": suma,
-          "email": req.user.email
+          "email": ""
         };
     
         let result = await ticketsModel.create(compra);
