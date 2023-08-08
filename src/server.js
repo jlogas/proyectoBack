@@ -17,7 +17,7 @@ import initializePassport from './config/passport.config.js';
 import { createTransport } from 'nodemailer';
 import compression from 'express-compression'
  
-import { addLogger } from './utils/logger.js';
+import { addLogger } from './utils/logger.js'; 
 import {logger} from './utils/logger.js'
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from "swagger-ui-express";
