@@ -31,24 +31,22 @@ export default class Carritos{
 
 
     eliminarProducto = async (cartid,productid) => {
-            const { products } = await carroModel.findOne(
-                { _id: cartid },
-                {
-                  productos: { $elemMatch: { id: productid } },
-                }
-              );
-
-              await carroModel.updateOne(
-                { _id: cartid },
-                {
-                  $pull: { productos: { _id: productid } },
-                  //$set: { total: newTotal },
-                }
-              );
-            }
+      try {
+        await carroModel.updateOne(
+          { _id: cartid },
+          { $pull: { productos: productid  } }
+        );
+    
+        logger.info("Producto eliminado del carrito con éxito")
+      } catch (error) {
+        logger.error("Error al eliminar el producto del carrito:");
+      }
+     
+      }
     
     getAllCarritos = async()=>{
         let carritos = await carroModel.find().lean().populate("productos");
+        console.log(carritos);
         return carritos
     }
     filtrarCarro = async(idc)=>{
@@ -57,6 +55,7 @@ export default class Carritos{
     }
 
     crearTicket = async (cid) => {
+      
       try {
         let carrito = await carroModel.findOne({ _id: cid }).populate("productos");
         const productos = carrito.productos;
@@ -88,14 +87,13 @@ export default class Carritos{
         let result = await ticketsModel.create(compra);
         return result;
       } catch (error) {
-        console.error("Error al crear el ticket:", error);
+        logger.error("Error al crear el ticket:");
       }
     };
     
       
      
     }
-const prueba = new Carritos
+//const prueba = new Carritos
 
-//prueba.crearTicket()
 

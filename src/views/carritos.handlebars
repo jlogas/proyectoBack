@@ -4,11 +4,15 @@
 </section>
   
   {{#each carritos}}
+  <form id="logout">
+    <button type="submit"> SALIR</button>
+  </form>
    <hr>
     <h3>Id del carro : {{this._id}}</h3>
+      <button class="comprar-btn" data-carrito-id="{{this._id}}">Comprar</button>
       {{#each this.productos}}
     <hr>
-    <p>id: {{this._id}}</p>
+    <p>id: {{this._id}}</p> 
     <p>titulo: {{this.title}}</p>
     <p>description: {{this.description}}</p> 
     <p>codigo: {{this.code}}</p> 
@@ -21,3 +25,5 @@
       {{/each}}
 
       <script src="./js/logout.js"></script> 
+      <script src="./js/crear-ticket.js"></script> 
+    

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     console.log('Producto ingresado al carrito');
+                    alert('Producto agregado al carrito');
                 } else {
                     console.error('Error al ingresar el producto al carrito');
                 }

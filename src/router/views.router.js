@@ -55,4 +55,22 @@ vistaRouter.get("/reset-password/:token", async (req,res)=>{
   }
 })
 
+
+vistaRouter.post('/api/carrito/:carritoId/crear-ticket', async (req, res) => {
+  const { carritoId } = req.params;
+
+  try {
+    const nuevoTicket = await carritosdb.crearTicket(carritoId);
+
+    if (nuevoTicket) {
+      res.status(201).json({ status: 'success', ticket: nuevoTicket });
+    } else {
+      res.status(400).json({ status: 'error', error: 'No se pudo crear el ticket' });
+    }
+  } catch (error) {
+    console.error('Error al crear el ticket:', error);
+    res.status(500).json({ status: 'error', error: 'Ha ocurrido un error al crear el ticket' });
+  }
+});
+
 export default vistaRouter;
