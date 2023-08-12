@@ -11,7 +11,7 @@ export default class Producto{
 
     getAll = async()=>{
         let productos = await productoModel.find().lean();
-        return productos
+        return productos 
     }
 
     getAllPaginate = async( categoryR,ordenR,limitR,pageR)=>{

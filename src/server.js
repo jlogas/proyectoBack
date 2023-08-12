@@ -71,8 +71,8 @@ const emailContent = {
 
 try {
   const email= await transporter.sendMail(emailContent)
-
-} catch (err) {
+ 
+} catch (err) { 
   console.log("ERROR",err);
 }
 

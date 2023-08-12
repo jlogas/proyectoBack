@@ -7,7 +7,7 @@ paths:
     get:
       summary: Obtiene todos los carritos
       tags:
-        - Productos
+        - Carritos
       responses:
         "200":
           description: Lista de carritos obtenida correctamente
@@ -16,5 +16,77 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/carros"
-  
+                  $ref: "#/components/schemas/Carrito"
+    post:
+      summary: Crea un nuevo carrito
+      tags:
+        - Carritos
+      requestBody:
+        description: Datos del carrito a crear
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Carrito"
+      responses:
+        "201":
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carrito"
+  /api/carrito/{id}/producto/{idp}:
+    post:
+      summary: Agrega un producto a un carrito
+      tags:
+        - Carritos
+      parameters:
+        - in: path
+          name: id
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: idp
+          description: ID del producto a agregar
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto agregado exitosamente al carrito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carrito"
+    delete:
+      summary: Elimina un producto de un carrito
+      tags:
+        - Carritos
+      parameters:
+        - in: path
+          name: id
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: idp
+          description: ID del producto a eliminar
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto eliminado exitosamente del carrito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carrito"
+components:
+  schemas:
+    Carrito:
+      type: object
+      properties:
+        // creacion de un carrito que deja ingresar productos por medio de los ID de los dos.

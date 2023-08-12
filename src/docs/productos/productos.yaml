@@ -17,6 +17,68 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Product"
+
+  /api/productos/{id}:
+    get:
+      summary: Obtiene un producto por su ID
+      tags:
+        - Productos
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del producto a obtener
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto obtenido correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Producto no encontrado
+
+  /api/productos:
+    post:
+      summary: Crea un nuevo producto
+      tags:
+        - Productos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "201":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Solicitud inválida
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 12345
+        name:
+          type: string
+          example: Producto de ejemplo
+        price:
+          type: number
+          example: 10.99
+      required:
+        - name
+        - price
+
   
     
   
