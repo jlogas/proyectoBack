@@ -4,4 +4,4 @@ const EnumErrors = {
     DATABASE_ERROR: 3,
   };
   
-  export default EnumErrors;
+  export default EnumErrors; 

@@ -1,5 +1,6 @@
 import express from 'express';
 import  config  from './config/config.js';
+import expressHandlebars from 'express-handlebars'
 
 import vistaRouter from './router/views.router.js';
 import mainRouter from './router/index.js';
@@ -13,6 +14,7 @@ import MongoStore from 'connect-mongo';
 
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
+
 
 import { createTransport } from 'nodemailer';
 import compression from 'express-compression'
