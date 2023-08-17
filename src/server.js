@@ -1,6 +1,8 @@
 import express from 'express';
 import  config  from './config/config.js';
 import expressHandlebars from 'express-handlebars'
+import cors from 'cors';
+
 
 import vistaRouter from './router/views.router.js';
 import mainRouter from './router/index.js';
@@ -24,10 +26,19 @@ import {logger} from './utils/logger.js'
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from "swagger-ui-express";
 
+
 const app = express();
 const puerto = config.PORT;
 const mongo = config.MONGO_URL; 
 const TEST_MAIL = 'kira.haley@ethereal.email'
+
+
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use(addLogger)
 

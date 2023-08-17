@@ -4,7 +4,7 @@ import { productoModel } from "../models/productos.js";
 import Producto from "./productos.js";
 
 import { logger } from "../../utils/logger.js";
-import { ne } from "@faker-js/faker";
+
 
 const producto = new Producto()
 
@@ -20,11 +20,12 @@ export default class Carritos{
         let newCarrito = await carroModel.create(carrito) 
         return newCarrito
     }
-
+ 
     ingresarProducto = async(idc,idp)=>{
         let carro = await carroModel.findById(idc).populate("productos")
         carro.productos.push({_id:idp})
         await carroModel.updateOne({_id:idc},carro)
+        console.log("se agrefo producto");
         return carro
     }
 
@@ -95,5 +96,5 @@ export default class Carritos{
      
     }
 //const prueba = new Carritos
-
+//prueba.ingresarProducto("64d7b9b121e08c326cd724bc","6499cfb1babe6afb481ad152")
 

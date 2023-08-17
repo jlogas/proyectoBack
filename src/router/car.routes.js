@@ -27,13 +27,13 @@ rutasCarritos.get("/", async(req,res)=>{
  // agregar producto al carro
 
  rutasCarritos.post("/:idc/:idp",async(req,res)=>{
-    const {idc,idp,cantidad}=req.body
-    let agregar= await carrosdb.ingresarProducto({idc,idp})
+    const {idc,idp}=req.params
+    let agregar= await carrosdb.ingresarProducto(idc,idp)
     res.json({statusL:"success", payload: agregar})
  })
 // crear ticket
 
-rutasCarritos.post("/:idc"),passport.authenticate('login', { session: false }),async(req,res)=>{
+rutasCarritos.post("/:idc/crear-ticket"),async(req,res)=>{
    
    const {idc} = req.params;
 
@@ -41,5 +41,13 @@ rutasCarritos.post("/:idc"),passport.authenticate('login', { session: false }),a
    console.log(ticket);
    res.send({ status: "succes", payload: ticket })
 }
+// eliminar producto
+rutasCarritos.delete("/:idc/:idp",async(req,res)=>{
+   const {idc,idp}=req.params
+   let eliminar = await carrosdb.eliminarProducto(idc,idp)
+   res.json({statusL:"success", payload: eliminar})
+
+})
+
 
 export default rutasCarritos
