@@ -66,18 +66,35 @@ components:
     Product:
       type: object
       properties:
-        id:
+        title:
+          type: string
+          example: Título de ejemplo
+        description:
+          type: string
+          example: Descripción de ejemplo
+        code:
           type: string
           example: 12345
-        name:
-          type: string
-          example: Producto de ejemplo
         price:
           type: number
           example: 10.99
+        status:
+          type: boolean
+          example: true
+        stock:
+          type: integer
+          example: 50
+        category:
+          type: string
+          example: Categoría de ejemplo
       required:
-        - name
+        - title
+        - description
+        - code
         - price
+        - status
+        - stock
+        - category
 
   
     
